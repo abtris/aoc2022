@@ -71,12 +71,12 @@ func main() {
 	data := prepareData("input")
 	total := 0
 	for _, v := range data {
-		score := getScore(v[0])
+		score := getScore(v[1])
 		win := 0
 		if v[0] == v[1] {
 			win = 3
 		}
-		if getWinner(v[0], v[1]) {
+		if getWinner(v[1], v[0]) {
 			win = 6
 		}
 		total += score + win
