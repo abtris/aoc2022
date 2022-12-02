@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -21,50 +20,29 @@ func getStringRepresentation(shortcut string) string {
 	return ""
 }
 
-func getScore(kind string) (int, error) {
+func getScore(kind string) int {
 	switch kind {
 	case "Rock":
-		return 1, nil
+		return 1
 	case "Paper":
-		return 2, nil
+		return 2
 	case "Scissors":
-		return 3, nil
+		return 3
 	}
-	return 0, errors.New("Nothing selected")
+	return 0
 }
 
-func getWinnerScore(proposal, answer string) (int, error) {
-	if proposal == "Rock" {
-		switch answer {
-		case "Rock":
-			return 3, nil
-		case "Paper":
-			return 6, nil
-		case "Scissors":
-			return 0, nil
-		}
+func getWinner(proposal, answer string) bool {
+	if proposal == "Rock" && answer == "Scissors" {
+		return true
 	}
-	if proposal == "Paper" {
-		switch answer {
-		case "Rock":
-			return 0, nil
-		case "Paper":
-			return 3, nil
-		case "Scissors":
-			return 6, nil
-		}
+	if proposal == "Paper" && answer == "Rock" {
+		return true
 	}
-	if proposal == "Scissors" {
-		switch answer {
-		case "Rock":
-			return 6, nil
-		case "Paper":
-			return 0, nil
-		case "Scissors":
-			return 3, nil
-		}
+	if proposal == "Scissors" && answer == "Paper" {
+		return true
 	}
-	return 0, errors.New("Wrong combination!")
+	return false
 }
 
 func prepareData(filename string) map[int][]string {
@@ -93,13 +71,13 @@ func main() {
 	data := prepareData("input")
 	total := 0
 	for _, v := range data {
-		score, err := getScore(v[0])
-		if err != nil {
-			log.Fatalln(err)
+		score := getScore(v[0])
+		win := 0
+		if v[0] == v[1] {
+			win = 3
 		}
-		win, err := getWinnerScore(v[0], v[1])
-		if err != nil {
-			log.Fatalln(err)
+		if getWinner(v[0], v[1]) {
+			win = 6
 		}
 		total += score + win
 	}
