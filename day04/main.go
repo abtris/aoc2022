@@ -19,6 +19,7 @@ func main() {
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
 	count := 0
+	part2Count := 0
 	for scanner.Scan() {
 		s := scanner.Text()
 		members := strings.Split(s, ",")
@@ -26,6 +27,7 @@ func main() {
 		b := getArrayFromString(members[1])
 		res := intersect.Simple(a, b)
 		if len(res) != 0 {
+			part2Count++
 			if len(res) == len(a) || len(res) == len(b) {
 				count++
 			}
@@ -35,6 +37,7 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println(count)
+	fmt.Println(part2Count)
 }
 
 func getArrayFromString(s string) []int {
