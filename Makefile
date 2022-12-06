@@ -4,8 +4,11 @@ directory = "day${CURRENTDAY}"
 
 all: | $(directory)
 	@touch "${directory}/main.go"
+	@echo "package main" >> "${directory}/main.go"
 	@touch "${directory}/main_test.go"
+	@echo "package main" >> "${directory}/main_test.go"
 	@touch "${directory}/input"
+	@touch "${directory}/input_test"
 
 $(directory):
 	@echo "Folder $(directory) does not exist"
