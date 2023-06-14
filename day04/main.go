@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/juliangruber/go-intersect"
+	"github.com/juliangruber/go-intersect/v2"
 )
 
 func main() {
